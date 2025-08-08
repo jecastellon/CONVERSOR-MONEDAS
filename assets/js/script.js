@@ -40,7 +40,37 @@ try {
     }
 catch (error) {
 console.log(error)
-}}
+}
+renderGraficaDolar()
+}
+
+async function getDataDolar() {
+    let res = await fetch("https://mindicador.cl/api/dolar")
+    let data = await res.json()
+    const labels = data.serie.map(item => item.fecha).reverse().slice(-10);
+    const valores = data.serie.map(item => item.valor).reverse().slice(-10);
+    return{labels, valores}
+}
+async function renderGraficaDolar() {
+    const { labels, valores } = await getDataDolar();
+    const config = {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Dólar observado",
+                    backgroundColor: "red",
+                    borderColor: "blue",
+                    data: valores
+                }
+            ]
+        }
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
+    new Chart(chartDOM, config)
+}
 
 // Euro
 
@@ -64,7 +94,37 @@ try {
     }
 catch (error) {
 console.log(error)
-}}
+}
+renderGraficaEuro()
+}
+
+async function getDataEuro() {
+    let res = await fetch("https://mindicador.cl/api/euro")
+    let data = await res.json()
+    const labels = data.serie.map(item => item.fecha).reverse().slice(-10);
+    const valores = data.serie.map(item => item.valor).reverse().slice(-10);
+    return{labels, valores}
+}
+async function renderGraficaEuro() {
+    const { labels, valores } = await getDataEuro();
+    const config = {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Euro observado",
+                    backgroundColor: "red",
+                    borderColor: "blue",
+                    data: valores
+                }
+            ]
+        }
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
+    new Chart(chartDOM, config)
+}
 
 // Bitcoin
 
@@ -88,15 +148,34 @@ try {
     }
 catch (error) {
 console.log(error)
-}}
+}
+renderGraficaBitcoin()
+}
 
-
-
-
-
-
-
-
-let graficaDolar = async () => {
-    
+async function getDataBitcoin() {
+    let res = await fetch("https://mindicador.cl/api/bitcoin")
+    let data = await res.json()
+    const labels = data.serie.map(item => item.fecha).reverse().slice(-10);
+    const valores = data.serie.map(item => item.valor).reverse().slice(-10);
+    return{labels, valores}
+}
+async function renderGraficaBitcoin() {
+    const { labels, valores } = await getDataBitcoin();
+    const config = {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Bitcoin observado",
+                    backgroundColor: "red",
+                    borderColor: "blue",
+                    data: valores
+                }
+            ]
+        }
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
+    new Chart(chartDOM, config)
 }
