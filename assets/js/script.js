@@ -3,6 +3,7 @@ const boton = document.querySelector(".boton")
 const resultado = document.querySelector("#resultado")
 const divError = document.querySelector("#error")
 const grafica = document.querySelector("#grafica")
+let myChart = null
 
 boton.addEventListener("click", () =>{
     const valor = Number(input.value)
@@ -53,6 +54,11 @@ async function getDataDolar() {
 }
 async function renderGraficaDolar() {
     const { labels, valores } = await getDataDolar();
+    if (myChart) {
+        myChart.destroy()
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
     const config = {
         type: "line",
         data: {
@@ -67,9 +73,7 @@ async function renderGraficaDolar() {
             ]
         }
     }
-    const chartDOM = document.querySelector("#grafica")
-    chartDOM.style.backgroundColor = "white"
-    new Chart(chartDOM, config)
+    myChart = new Chart(chartDOM, config)
 }
 
 // Euro
@@ -107,6 +111,11 @@ async function getDataEuro() {
 }
 async function renderGraficaEuro() {
     const { labels, valores } = await getDataEuro();
+    if (myChart) {
+        myChart.destroy()
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
     const config = {
         type: "line",
         data: {
@@ -121,9 +130,7 @@ async function renderGraficaEuro() {
             ]
         }
     }
-    const chartDOM = document.querySelector("#grafica")
-    chartDOM.style.backgroundColor = "white"
-    new Chart(chartDOM, config)
+    myChart = new Chart(chartDOM, config)
 }
 
 // Bitcoin
@@ -161,6 +168,11 @@ async function getDataBitcoin() {
 }
 async function renderGraficaBitcoin() {
     const { labels, valores } = await getDataBitcoin();
+    if (myChart) {
+        myChart.destroy()
+    }
+    const chartDOM = document.querySelector("#grafica")
+    chartDOM.style.backgroundColor = "white"
     const config = {
         type: "line",
         data: {
@@ -175,7 +187,5 @@ async function renderGraficaBitcoin() {
             ]
         }
     }
-    const chartDOM = document.querySelector("#grafica")
-    chartDOM.style.backgroundColor = "white"
-    new Chart(chartDOM, config)
+    myChart = new Chart(chartDOM, config)
 }
